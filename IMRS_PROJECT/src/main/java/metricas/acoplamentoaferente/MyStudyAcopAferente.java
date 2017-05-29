@@ -1,7 +1,5 @@
 package metricas.acoplamentoaferente;
 
-import metricas.acoplamentoaferente.AcoplamentoAferente;
-
 import org.repodriller.RepoDriller;
 import org.repodriller.RepositoryMining;
 import org.repodriller.Study;
@@ -14,13 +12,14 @@ public class MyStudyAcopAferente implements Study {
 		new RepoDriller().start(new MyStudyAcopAferente());
 	}
 
-	public void execute() {
+	public void execute(){
 		new RepositoryMining()
-				.in(GitRepository
-						.singleProject("C:/Users/vanesilv/git/change-metrics"))
-				.through(Commits.all())
-				.process(new AcoplamentoAferente(),
-						new CSVFile("C:/Users/vanesilv/git/IMRS_PROJECT/IMRS_PROJECT/src/files/file.csv")).mine();
+				.in(GitRepository.singleProject("C:/Users/vanesilv/git/change-metrics"))
+				.through(Commits.single("b723b29a428ff12f565587b7b142fe987e8e20ea"))
+				//.withThreads(3)
+				//.filters(new OnlyModificationsWithFileTypes(Arrays.asList(".java")), new OnlyInMainBranch())
+				.process(new AcoplamentoAferente(),new CSVFile("C:/Users/vanesilv/git/IMRS_PROJECT/IMRS_PROJECT/src/files/file.csv"))
+				.mine();
 	}
 }
 // path projeto teste: "C:/Users/vanesilv/git/change-metrics"
